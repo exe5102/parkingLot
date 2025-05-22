@@ -1,0 +1,90 @@
+{% extends 'Base.html' %}
+
+{% block title %}訂位查詢系統{% endblock %}
+
+{% block header %}
+<h2>訂位查詢</h2>
+<p>請在下方輸入車牌號碼</p>{% endblock %}
+
+{% block box %}
+<div class="row">
+	<div class="col-12">
+
+		<!-- Text -->
+		<section class="box">
+			<form action="/search" method="post">
+				<div class="row gtr-uniform gtr-50">
+					<div class="col-9 col-12-mobilep">
+						<input type="text" name="Unumber" id="Unumber" value="" placeholder="車牌號碼" />
+					</div>
+					<div class="col-3 col-12-mobilep">
+						<input type="submit" value="確定" class="fit" />
+					</div>
+				</div>
+			</form>
+
+		</section>
+
+	</div>
+</div>
+<div class="row">
+	<div class="col-12">
+
+		<!-- Table -->
+
+		<section class="box">
+			<h3>查詢結果</h3>
+
+			<div class="table-wrapper">
+				<table>
+					<thead>
+						<tr>
+							<th>
+								<h4>電話</h4>
+							</th>
+							<th>
+								<h4>車位</h4>
+							</th>
+							<th>
+								<h4>車牌</h4>
+							</th>
+							<th>
+								<h4>時間</h4>
+							</th>
+							<th>
+								<h4>金額</h4>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% if DBfatch%}
+						<tr>
+							<td>{{ DBfatch[0] }}</td>
+							<td>{{ DBfatch[1] }}</td>
+							<td>{{ DBfatch[2] }}</td>
+							<td>{{ DBfatch[3] }}</td>
+							<td>{{ Pamount }}</td>
+						</tr>
+
+						{% else %}
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						{% endif %}
+
+					</tbody>
+
+				</table>
+				<ul class="actions special">
+					<li><a href="{{ url_for('report') }}" class="button primary"
+							style="background-color: rgba(88, 150, 47, 0.5);">前往報到</a></li>
+					<li><a href="{{ url_for('Payment') }}" class="button primary"
+							style="background-color: rgba(17, 66, 230, 0.5);">前往繳費</a></li>
+					<li><a href="{{ url_for('index') }}" class="button primary">回首頁</a></li>
+				</ul>
+			</div>
+			{% endblock %}

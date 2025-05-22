@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<html lang="zh-TW">
+
+<head>
+    <title>線上訂位系統</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/main.css') }}" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        .div2 {
+            width: 3000px;
+            height: 500px;
+            padding: 50px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body class="is-preload">
+    <div id="page-wrapper">
+        <header id="header">
+            <h1><a href="{{ url_for('Administration') }}">線上訂位系統</a></h1>
+            <nav id="nav">
+                <ul>
+                    <li><a href="{{ url_for('Administration') }}">首頁</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main -->
+        <section id="main" class="container medium">
+            <header>
+                <h2>選擇車位</h2>
+            </header>
+
+            <div id="map">
+                <div class="div2">
+                </div>
+            </div>
+            <form action="/AdminControl" method="post">
+                <div class="box">
+                    <div class="row gtr-0 gtr-uniform">
+                        <div class="button col-6 ">
+                            <input type="radio" id="1號" name="pnumber" value="1" checked>
+                            <label for="1號" style="color: aliceblue;">1號</label>
+                        </div>
+                        <div class="button col-6 ">
+                            <input type="radio" id="2號" name="pnumber" value="2" checked>
+                            <label for="2號" style="color: aliceblue;">2號</label>
+                        </div>
+                        <div class="button col-6 ">
+                            <input type="radio" id="3號" name="pnumber" value="3" checked>
+                            <label for="3號" style="color: aliceblue;">3號</label>
+                        </div>
+                        <div class="button col-6 ">
+                            <input type="radio" id="4號" name="pnumber" value="4" checked>
+                            <label for="4號" style="color: aliceblue;">4號</label>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row gtr-0 gtr-uniform">
+                        <div class="button col-6 " style="background-color: rgb(37, 182, 102);">
+                            <input type="radio" id="open" name="state" value="0" checked>
+                            <label for="open" style="color: aliceblue;">開放車位</label>
+                        </div>
+                        <div class="button col-6 " style="background-color: rgb(182, 37, 37);">
+                            <input type="radio" id="close" name="state" value="3" checked>
+                            <label for="close" style="color: aliceblue;">關閉車位</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <ul class="actions special">
+                        <li><a href="{{ url_for('Administration') }}" class="button primary">回首頁</a></li>
+                        <li><input type="submit" value="確定" /></li>
+                    </ul>
+                </div>
+            </form>
+        </section>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="icons">
+                <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+                <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                <li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+                <li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
+                <li><a href="#" class="icon brands fa-google-plus"><span class="label">Google+</span></a></li>
+            </ul>
+            <ul class="copyright">
+                <li>&copy; Untitled. All rights reserved.</li>
+                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+        </footer>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <script>
+        var x;
+        var x;
+        var redIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+        var yellowIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+        var greenIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+        var map;
+        map = L.map('map').setView([24.146502, 120.730152], 16);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '<a href="https://www.openstreetmap.org/">OSM</a>',
+            maxZoom: 18,
+        }).addTo(map);
+    </script>
+    {%if State[0] == '0' %}
+    <script>
+        var marker = L.marker([24.146378, 120.731153]);
+        marker.addTo(map);
+        marker.bindPopup('<strong>1號</strong><br>空位');
+    </script>
+    {% elif State[0] == '3'%}
+    <script>
+        var marker = L.marker([24.146378, 120.731153], { icon: redIcon });
+        marker.addTo(map);
+        marker.bindPopup('<strong>1號</strong><br>暫不開放');
+    </script>
+    {% else %}
+    <script>
+        var marker = L.marker([24.146378, 120.731153], { icon: yellowIcon });
+        marker.addTo(map);
+        marker.bindPopup('<strong>1號</strong><br>使用中');
+    </script>
+    {% endif %}
+    {%if State[2] == '0' %}
+    <script>
+        var marker2 = L.marker([24.144511, 120.730659]);
+        marker2.addTo(map);
+        marker2.bindPopup('<strong>3號</strong><br>空位');
+    </script>
+    {% elif State[2] == '3'%}
+    <script>
+        var marker = L.marker([24.144511, 120.730659], { icon: redIcon });
+        marker.addTo(map);
+        marker.bindPopup('<strong>3號</strong><br>暫不開放');
+    </script>
+    {% else %}
+    <script>
+        var marker2 = L.marker([24.144511, 120.730659], { icon: yellowIcon });
+        marker2.addTo(map);
+        marker2.bindPopup('<strong>3號</strong><br>使用中');
+    </script>
+    {% endif %}
+    {%if State[1] == '0' %}
+    <script>
+        var marker3 = L.marker([24.146504, 120.729108]);
+        marker3.addTo(map);
+        marker3.bindPopup('<strong>2號</strong><br>空位');
+    </script>
+    {% elif State[1] == '3'%}
+    <script>
+        var marker = L.marker([24.146504, 120.729108], { icon: redIcon });
+        marker.addTo(map);
+        marker.bindPopup('<strong>2號</strong><br>暫不開放');
+    </script>
+    {% else %}
+    <script>
+        var marker3 = L.marker([24.146504, 120.729108], { icon: yellowIcon });
+        marker3.addTo(map);
+        marker3.bindPopup('<strong>2號</strong><br>使用中');
+    </script>
+    {% endif %}
+    {%if State[3] == '0' %}
+    <script>
+        var marker4 = L.marker([24.144628, 120.728925]);
+        marker4.addTo(map);
+        marker4.bindPopup('<strong>4號</strong><br>空位');
+    </script>
+    {% elif State[3] == '3'%}
+    <script>
+        var marker = L.marker([24.144628, 120.728925], { icon: redIcon });
+        marker.addTo(map);
+        marker.bindPopup('<strong>4號</strong><br>暫不開放');
+    </script>
+    {% else %}
+    <script>
+        var marker4 = L.marker([24.144628, 120.728925], { icon: yellowIcon });
+        marker4.addTo(map);
+        marker4.bindPopup('<strong>4號</strong><br>使用中');
+    </script>
+    {% endif %}
+
+    <script src="{{ url_for('static', filename= 'js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename= 'js/jquery.dropotron.min.js') }}"></script>
+    <script src="{{ url_for('static', filename= 'js/jquery.scrollex.min.js') }}"></script>
+    <script src="{{ url_for('static', filename= 'js/browser.min.js') }}"></script>
+    <script src="{{ url_for('static', filename= 'js/breakpoints.min.js') }}"></script>
+    <script src="{{ url_for('static', filename= 'js/util.js') }}"></script>
+    <script src="{{ url_for('static', filename= 'js/main.js') }}"></script>
+</body>
+
+</html>

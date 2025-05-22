@@ -1,0 +1,41 @@
+{% extends 'Base.html' %}
+
+{% block title %}訂位已取消 {% endblock %}
+
+{% block header %}
+<h2>取消成功</h2>
+<p>歡迎下次光臨</p>
+<section class="box">
+	<h3>已刪除以下訂位資料</h3>
+	<div class="table-wrapper">
+		<table>
+			<thead>
+				<tr>
+					<th>
+						<h4>車牌</h4>
+					</th>
+					<th>
+						<h4>電話</h4>
+					</th>
+					<th>
+						<h4>車位</h4>
+					</th>
+					<th>
+						<h4>時間</h4>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{ DBfatch[0] }}</td>
+					<td>{{ DBfatch[1] }}</td>
+					<td>{{ DBfatch[2] }}</td>
+					<td>{{ DBfatch[3] }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<ul class="actions special">
+		<li><a href="{{ url_for('index') }}" class="button primary">回首頁</a></li>
+	</ul>
+	{% endblock %}

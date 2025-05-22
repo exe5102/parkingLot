@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html lang="zh-TW">
+
+<head>
+    <title>線上訂位系統-報到</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/main.css') }}" />
+</head>
+
+<body class="is-preload">
+    <div id="page-wrapper">
+        <!-- Header -->
+        <header id="header">
+            <h1><a href="{{ url_for('index') }}">線上訂位系統</a></h1>
+            <nav id="nav">
+                <ul>
+                    <li><a href="{{ url_for('index') }}">首頁</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main -->
+        <section id="main" class="container medium">
+            <header>
+                <h2>選擇車位</h2>
+            </header>
+            <form action="/Report" method="post">
+                <div class="box">
+                    <div class="row gtr-0 gtr-uniform">
+                        <div class="button col-6 ">
+                            <input type="radio" id="1號" name="pnumber" value="1" checked>
+                            <label for="1號" style="color: aliceblue;">1號</label>
+                        </div>
+                        <div class="button col-6 ">
+                            <input type="radio" id="2號" name="pnumber" value="2" checked>
+                            <label for="2號" style="color: aliceblue;">2號</label>
+                        </div>
+                        <div class="button col-6 ">
+                            <input type="radio" id="3號" name="pnumber" value="3" checked>
+                            <label for="3號" style="color: aliceblue;">3號</label>
+                        </div>
+                        <div class="button col-6 ">
+                            <input type="radio" id="4號" name="pnumber" value="4" checked>
+                            <label for="4號" style="color: aliceblue;">4號</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row gtr-50 gtr-uniform">
+                    <div class="col-12">
+                        <input type="text" name="unumber" id="unumber" value="" placeholder="車牌號碼" />
+                    </div>
+                    <div class="col-12">
+                        <ul class="actions special">
+                            <li><input type="submit" value="確定" /></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="icons">
+                <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+                <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                <li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+                <li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
+                <li><a href="#" class="icon brands fa-google-plus"><span class="label">Google+</span></a></li>
+            </ul>
+            <ul class="copyright">
+                <li>&copy; Untitled. All rights reserved.</li>
+                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+        </footer>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename= 'js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename= 'js/jquery.dropotron.min.js') }}"></script>
+    <script src="{{ url_for('static', filename= 'js/jquery.scrollex.min.js') }}"></script>
+    <script src="{{ url_for('static', filename= 'js/browser.min.js') }}"></script>
+    <script src="{{ url_for('static', filename= 'js/breakpoints.min.js') }}"></script>
+    <script src="{{ url_for('static', filename= 'js/util.js') }}"></script>
+    <script src="{{ url_for('static', filename= 'js/main.js') }}"></script>
+
+</body>
+
+</html>

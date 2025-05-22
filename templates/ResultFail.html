@@ -1,0 +1,11 @@
+{% extends 'Base.html' %}
+
+{% block title %}訂位未成立 {% endblock  %}
+
+{% block header %}
+<h2>預訂車位失敗</h2>
+<p>請確認資料都輸入正確再預訂車位</p>
+<ul class="actions special">
+	<li><a href="{{ url_for('index') }}" class="button primary">回首頁</a></li>
+</ul>
+{% endblock %}
