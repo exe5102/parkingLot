@@ -42,7 +42,7 @@
 
 1. 克隆專案
 ```bash
-git clone [repository_url]
+git clone https://github.com/exe5102/parkingLot.git
 cd parking-lot
 ```
 
